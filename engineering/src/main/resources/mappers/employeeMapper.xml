@@ -14,10 +14,10 @@ EMP_NO,EMP_ID,EMP_PW,EMP_NAME,EMP_DEPT_NUM,EMP_EMAIL,EMP_PHONENUM,HIRE_DATE,SALA
 	HIRE_DATE hireDate,SALARY
 	</sql>
 
-<update id="employeeDelete" parameterType="string">
+<delete id="employeeDelete" parameterType="string">
 	delete from employees
 	where emp_no = #{empNo}
-</update>
+</delete>
 
 <update id="employeeUpdate" parameterType="emp">
 	update employees
