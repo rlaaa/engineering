@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.memberMapper">
+<insert id="memberInsert" parameterType="model.MemberDTO">
+	insert into member(MEMB_ID, MEMB_PW, MEMB_NAME, MEMB_ADDR, 
+					   MEMB_PHONENUM, MEMB_EMAIL, MEMB_BIRTH, MEMB_GENDER, 
+					   MEMB_JOINDATE, MEMB_CONFIRM, POST_NUMBER, DETAIL_ADDR)
+	values(#{membId},#{membPw},#{membName},#{membAddr},
+		   #{membPhoneNumber},#{membEmail},#{membBirth},#{membGender},
+		   sysdate,#{membConfirm},#{postNumber},#{detailAddr})
+</insert>
+<select id="memberList" resultType="model.MemberDTO">
+	select MEMB_ID membId, MEMB_PW membPw, MEMB_NAME membName, MEMB_ADDR membAddr, 
+		   MEMB_PHONENUM membPhoneNumber, MEMB_EMAIL membEmail, MEMB_BIRTH membBirth, 
+		   MEMB_GENDER membGender, MEMB_JOINDATE membEnterDate, 
+		   MEMB_CONFIRM membConfirm, POST_NUMBER postNumber, DETAIL_ADDR detailAddr
+	from member
+
+</select>
+</mapper>

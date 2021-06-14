@@ -21,13 +21,15 @@
 		<input type="password" name="loginPw" />
 	</td></tr>
 <tr><td colspan="3">
-		아이디/비밀번호찾기 | <a her="#">회원가입</a>
+		아이디/비밀번호찾기 | <a href="member/agree">회원가입</a>
 	</td></tr>
 </table>
 
 
 <!-- 관리자 로그인 -->
-<a href="emp/empList">직원정보 리스트</a>
+<a href="emp/empList">직원 정보 리스트</a><br />
+<a href="member/memList">회원 정보 리스트</a><br />
+
 
 <!-- 일반직원 로그인 -->
 
