@@ -19,6 +19,13 @@
 	where MEMB_ID = #{membId} 
 </update>
 
+<update id="pwChange" parameterType="model.MemberDTO">
+	update member
+	set MEMB_PW = #{membPw} 
+	where MEMB_ID = #{membId} 
+</update>
+
+
 <delete id="memberDelete" parameterType="string">
 	delete from member
 	where MEMB_ID = #{memId}

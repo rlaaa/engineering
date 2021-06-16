@@ -24,6 +24,7 @@ public class LoginService {
 			if(bcryptPasswordEncoder.matches(loginPw, authInfo.getUserPw())) {
 				///// 로그인 정보를 가진 session
 				session.setAttribute("authInfo", authInfo);
+				// 모든 페이지에 로그인 된 정보를 전달해야하기 때문에 session 사용
 				/////
 				session.removeAttribute("pwFail");
 				session.removeAttribute("userFail");

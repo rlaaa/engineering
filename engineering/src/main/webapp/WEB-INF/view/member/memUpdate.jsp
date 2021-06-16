@@ -57,12 +57,13 @@
 </script>
 </head>
 <body>
-회원정보 수정 페이지 입니다. <br />
-<form action="memModifyOk" method="post" name="frm">
-<input type="hidden" name="membId" value="${dto.membId } " />
+<form action="memUpdateOk" method="post" name="frm">
 	<table border="1" align="center">
 		<tr><td>아이디</td>
 			<td>${dto.membId } </td></tr>
+		<tr><td>비밀번호</td>
+			<td><input type="password" name="membPw">
+			<span>${pwFail1 }</span> </td></tr>
 		<tr><td>이름</td>
 			<td>${dto.membName } </td></tr>
 		<tr><td>우편번호</td>
@@ -99,8 +100,6 @@
 				<input type="submit" value="수정 완료" />
 				<input type="button" value="수정 안함"
 					onclick="javascript:history.back();" />
-				<input type="button" value="강제 삭제"
-					onclick="javascript:location.href='memDel?memId=${dto.membId }'" />
 			</td></tr>
 	</table>
 </form>
