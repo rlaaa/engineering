@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.productMapper">
+
+<insert id="prodInsert">
+	insert into product (PROD_NO, CATE_NUM, PROD_NAME, PROD_PRICE, PROD_INFO, PROD_IMG, EMP_NO)
+	values (#{prodNo}, #{cateNum}, #{prodName}, #{prodPrice}, #{prodInfo}, #{prodImage}, #{empNo})
+</insert>
+
+<update id="prodUpdate" parameterType="model.ProductDTO">
+	update product
+	set PROD_NAME =#{prodName}, PROD_PRICE =#{prodPrice}, PROD_INFO =#{prodInfo}
+	where PROD_NO =#{prodNo}
+</update>
+
+<delete id="prodDelete" parameterType="string">
+	delete from product
+	where PROD_NO =#{prodNo}
+</delete>
+
+<select id="autoNum" resultType="string">
+	select goods_num.nextval from dual
+</select>
+
+<select id="prodInfo" parameterType="string" resultType="model.ProductDTO">
+	select PROD_NO prodNo, CATE_NUM cateNum, PROD_NAME prodName, PROD_PRICE prodPrice, 
+		   PROD_INFO prodInfo, PROD_IMG prodImage, EMP_NO empNo
+	from product
+	where PROD_NO = #{prodNo}
+</select>
+
+<select id="catList" resultType="model.CateDTO">
+	select CATE_NUM cateNum, CATE_KIND cateKind, CATE_NAME cateName from category
+</select>
+
+<select id="prodList" resultType="model.ProductDTO">
+	select PROD_NO prodNo, CATE_NUM cateNum, PROD_NAME prodName, PROD_PRICE prodPrice, 
+		   PROD_INFO prodInfo, PROD_IMG prodImage, EMP_NO empNo
+	from product
+</select>
+
+</mapper>
+

@@ -28,6 +28,7 @@
 	</td></tr>
 </table>
 </form>
+
 </c:if>
 <c:if test="${!empty authInfo }">
 <c:if test="${authInfo.grade != 1 }">
@@ -38,6 +39,10 @@
 
 <!-- 일반직원 로그인 -->
 	<a href=emp/empMyPage">직원 마이페이지</a>
+	
+<a href="prod/prodList">상품 정보 리스트</a>
+
+
 </c:if>
 <c:if test="${authInfo.grade == 1 }">
 <!-- 사용자 로그인 -->

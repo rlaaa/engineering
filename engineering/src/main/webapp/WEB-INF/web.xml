@@ -33,6 +33,7 @@
   			classpath:spring-employees.xml
   			classpath:spring-main.xml
   			classpath:spring-member.xml
+  			classpath:spring-product.xml
   		</param-value>
   	</init-param>
   </servlet>
