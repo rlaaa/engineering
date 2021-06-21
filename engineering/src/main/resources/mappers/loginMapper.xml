@@ -7,7 +7,7 @@
 	from member
 	where memb_id = #{loginId}
 	union
-	select emp_id, emp_pw, emp_no
+	select emp_id userId, emp_pw userPw, emp_no grade
 	from employees
 	where emp_id = #{loginId}
 </select>

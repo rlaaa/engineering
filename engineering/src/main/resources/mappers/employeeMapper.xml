@@ -27,6 +27,12 @@ EMP_NO,EMP_ID,EMP_PW,EMP_NAME,EMP_DEPT_NUM,EMP_EMAIL,EMP_PHONENUM,HIRE_DATE,SALA
 	where emp_no = #{empNo}
 </update>
 
+<update id="pwChange" parameterType="emp">
+	update employees
+	set EMP_PW = #{empPw} 
+	where EMP_ID = #{empId} 
+</update>
+
 <insert id="employeeInsert" parameterType="emp">
 	insert into employees(<include refid="baseColumn" />)
 	values(#{empNo},#{empId},#{empPw},#{empName},

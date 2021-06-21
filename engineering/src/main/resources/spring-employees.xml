@@ -19,4 +19,13 @@
 		class="service.employees.EmployeeModifyService"/>
 	<bean id="employeeDeleteService" 
 		class="service.employees.EmployeeDeleteService"/>
+	<bean id="employeeDetailService" 
+		class="service.employees.EmployeeDetailService"/>	
+	<bean id="employeeUpdateService" 
+		class="service.employees.EmployeeUpdateService"/>
+	<bean id="employeeDeleteOkService" 
+		class="service.employees.EmployeeDeleteOkService"/>
+	<bean id="employeePwChangeService" 
+		class="service.employees.EmployeePwChangeService"/>
+
 </beans>

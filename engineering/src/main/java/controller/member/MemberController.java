@@ -104,8 +104,7 @@ public class MemberController {
 			return "redirect:myInfo";
 		}else {
 			return "redirect:memUpdate";
-		}
-		
+		}		
 	}
 	@RequestMapping("memDelete")
 	public String memDelete() {

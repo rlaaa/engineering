@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class EmployeeDTO {
-	Long empNo;
+	long empNo;
 	String empId;
 	String empPw;
 	String empName;
@@ -12,10 +12,11 @@ public class EmployeeDTO {
 	String empPhoneNumber;
 	Date hireDate;
 	Long salary;
-	public Long getEmpNo() {
+	
+	public long getEmpNo() {
 		return empNo;
 	}
-	public void setEmpNo(Long empNo) {
+	public void setEmpNo(long empNo) {
 		this.empNo = empNo;
 	}
 	public String getEmpId() {
@@ -66,4 +67,6 @@ public class EmployeeDTO {
 	public void setSalary(Long salary) {
 		this.salary = salary;
 	}
+	
+
 }

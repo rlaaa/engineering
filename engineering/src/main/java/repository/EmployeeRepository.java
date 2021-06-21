@@ -22,6 +22,7 @@ public class EmployeeRepository {
 		sqlSession.delete(statement, empNo);
 		
 	}
+	
 	public void insertEmployee(EmployeeDTO dto) {
 		statement = namespace + ".employeeInsert";
 		sqlSession.insert(statement, dto);
@@ -37,6 +38,11 @@ public class EmployeeRepository {
 	public List<EmployeeDTO> empAllList() {
 		statement = namespace + ".empAllList";
 		return sqlSession.selectList(statement);
+	}
+	public void pwChange(EmployeeDTO dto) {
+		statement = namespace + ".pwChange";
+		sqlSession.update(statement, dto);
+		
 	}
 
 	

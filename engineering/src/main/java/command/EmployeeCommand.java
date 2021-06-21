@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class EmployeeCommand {
-	Long empNo;
+	long empNo;
 	String empId;
 	String empPw;
 	String empPwCon;
@@ -16,10 +16,11 @@ public class EmployeeCommand {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	Date hireDate;
 	Long salary;
-	public Long getEmpNo() {
+	
+	public long getEmpNo() {
 		return empNo;
 	}
-	public void setEmpNo(Long empNo) {
+	public void setEmpNo(long empNo) {
 		this.empNo = empNo;
 	}
 	public String getEmpId() {

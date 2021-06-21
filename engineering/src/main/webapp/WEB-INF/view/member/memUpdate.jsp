@@ -63,7 +63,7 @@
 			<td>${dto.membId } </td></tr>
 		<tr><td>비밀번호</td>
 			<td><input type="password" name="membPw">
-			<span>${pwFail1 }</span> </td></tr>
+			<span>${pwFail1 }</span></td></tr>
 		<tr><td>이름</td>
 			<td>${dto.membName } </td></tr>
 		<tr><td>우편번호</td>
@@ -74,9 +74,9 @@
 					   value="${dto.membAddr } " />
 			<a href="javascript:sample4_execDaumPostcode();">주소검색</a></td></tr>
 		<tr><td>상세주소</td>
-			<td><input type="text" name="detailAddr" value="${dto.detailAddr } " /></td></tr>
+			<td><input type="text" name="detailAddr" value="${dto.detailAddr }" /></td></tr>
 		<tr><td>연락처</td>
-			<td><input type="text" name="membPhoneNumber" value="${dto.membPhoneNumber } " /></td></tr>
+			<td><input type="text" name="membPhoneNumber" value="${dto.membPhoneNumber }" /></td></tr>
 		<tr><td>생년월일</td>
 			<td><fmt:formatDate value="${dto.membBirth }" type="date"
 								pattern="yyyy-MM-dd" /></td></tr>

@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <c:if test="${empty authInfo }">
 <!-- 로그인이 안 된 상태 -->
 <form action="login" method="post">
@@ -38,7 +39,7 @@
 
 
 <!-- 일반직원 로그인 -->
-	<a href=emp/empMyPage">직원 마이페이지</a>
+	<a href="emp/empMyPage">직원 마이페이지</a>
 	
 <a href="prod/prodList">상품 정보 리스트</a>
 
@@ -52,5 +53,23 @@
 <!-- 로그아웃은 직원과 사용자 모두 사용 -->
 <a href="logout">로그아웃</a>
 </c:if>
+
+<table width="600">
+	<tr>
+	<c:forEach items="${prodList }" var="dto" varStatus="cnt">
+		<td>
+		<a href="prod/prodInfo?prodNo=${dto.prodNo }">
+		<img width="200" src="product/upload/${dto.prodImage.split(',')[0] }" /><br />${dto.prodName }<br />
+		${dto.prodPrice }원
+		</a>
+		</td>
+	<c:if test="${cnt.count % 3 == 0 }">
+	</tr><tr>
+	</c:if>
+	</c:forEach>
+	</tr>
+</table>
+
+
 </body>
 </html>
