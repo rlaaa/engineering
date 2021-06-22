@@ -19,7 +19,7 @@ public class CartListService {
 	public void cartList(HttpSession session, Model model) {
 		AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
 		String membId= authInfo.getUserId();
-		/// 현접속자의 prod_no 리스트만 가져오기 위해서
+		/// 현재 접속한 membId의 <prod_no list>만 가져오기 위해서 
 		List<String> list = productRepository.memCart(membId);
 		List<ProductCartDTO> dtos = new ArrayList<ProductCartDTO>();
 		for(String prodNo : list) {
@@ -31,5 +31,6 @@ public class CartListService {
 			ProductCartDTO productCartDTO = productRepository.cartList(dto);
 			dtos.add(productCartDTO);			
 		}
+		model.addAttribute("list", dtos);
 	}
 }

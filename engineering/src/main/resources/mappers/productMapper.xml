@@ -14,6 +14,8 @@
 	where p.prod_no = c.prod_no and c.memb_id = #{membId}
 								and c.prod_no = #{prodNo}
 </select>
+
+<!-- resultMap : selectList를 사용할 수 없다 | selectOne 사용 -->
 <resultMap type="model.ProductCartDTO" id="productCartMap">
 	<association property="productDTO" javaType="model.ProductDTO">
 		<result column="prod_name" jdbcType="VARCHAR" property="prodName" />
@@ -26,6 +28,12 @@
 		<result column="cart_price" jdbcType="VARCHAR" property="cartPrice"/>
 	</association>
 </resultMap>
+
+<update id="cartQtyDown" parameterType="model.CartDTO">
+	update cart
+	set CART_QTY = CART_QTY - 1, CART_PRICE = CART_PRICE + #{cartPrice}
+	where memb_id = #{membId} and PROD_NO =#{prodNo}
+</update>
 
 <insert id="prodInsert">
 	insert into product (PROD_NO, CATE_NUM, PROD_NAME, PROD_PRICE, PROD_INFO, PROD_IMG, EMP_NO)
