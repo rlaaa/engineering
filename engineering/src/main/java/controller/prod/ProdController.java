@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import command.GoodsOrderCommand;
 import command.ProductCommand;
 import service.product.CartAddService;
 import service.product.CartListService;
 import service.product.CartQtyDownService;
+import service.product.GoodsOrderService;
+import service.product.PaymentService;
 import service.product.ProdBuyService;
 import service.product.ProductAutoNumService;
 import service.product.ProductDeleteService;
@@ -20,6 +23,7 @@ import service.product.ProductInfoService;
 import service.product.ProductJoinService;
 import service.product.ProductListService;
 import service.product.ProductModifyService;
+import service.product.PurchaseListService;
 
 @Controller
 @RequestMapping("prod")
@@ -42,6 +46,39 @@ public class ProdController {
 	CartQtyDownService cartQtyDownService;
 	@Autowired
 	ProdBuyService prodBuyService;
+	@Autowired
+	GoodsOrderService goodsOrderService;
+	@Autowired
+	PurchaseListService purchaseListService;
+	@Autowired
+	PaymentService paymentService;
+	@RequestMapping("doPayment")
+	public String doPayment(@RequestParam(value="purchNo") String purchNo, 
+							@RequestParam(value="payPrice") String payPrice, 
+							@RequestParam(value="payAccNum") String payAccNum, 
+							@RequestParam(value="payCardBank") String payCardBank,
+							// RequestParam 길게 적으면 지저분하니까 command 만들어줘서 사용
+							HttpSession session) {
+		paymentService.payment(purchNo, payPrice, payAccNum, payCardBank, session);
+		return "redirect:purchCon";
+	}
+	@RequestMapping("paymentOk")
+	public String paymentOk(@RequestParam(value="purchNo") String purchNo, 
+							@RequestParam(value="payPrice") String payPrice, Model model) {
+		model.addAttribute("purchNo", purchNo);
+		model.addAttribute("payPrice", payPrice);
+		return "product/payment";
+	}
+	@RequestMapping("purchCon")
+	public String purchCon(HttpSession session, Model model) {
+		purchaseListService.purchList(session, model);
+		return "product/purchCon";
+	}
+	@RequestMapping("goodsOrder")
+	public String goodsOrder(GoodsOrderCommand goodsOrderCommand, HttpSession session) {
+		String purchNo = goodsOrderService.goodsOrder(goodsOrderCommand, session);
+		return "redirect:paymentOk?purchNo="+purchNo+"&payPrice="+goodsOrderCommand.getPurchTotal();
+	}
 	
 	@RequestMapping("prodBuy")
 	public String prodBuy(@RequestParam(value="prodCk") String [] prodCk, Model model,

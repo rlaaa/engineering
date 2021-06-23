@@ -3,6 +3,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.productMapper">
 
+<sql id="payNo">
+select to_char(sysdate, 'yyyymmdd') || nvl2(max(pay_no), substr(max(pay_no), -6), 100000) +1
+from payment
+where substr(pay_date,1,8) =  to_char(sysdate, 'yyyymmdd')
+</sql>
+
+<insert id="payInsert" parameterType="model.PaymentDTO">
+	insert into payment (PAY_NO, PURC_NO, PAY_METHOD, PAY_ACC_NUM, PAY_PRICE, PAY_DATE, PAY_CARD_BANK)
+	values ((<include refid="payNo" />), #{purchNo}, #{payMethod}, #{payAccNum}, 
+			#{payPrice}, sysdate, #{payCardBank})
+</insert>
+
 <select id="memCart" parameterType="string" resultType="string">
 	select PROD_NO from cart
 	where MEMB_ID = #{membId}
@@ -28,6 +40,32 @@
 		<result column="cart_price" jdbcType="VARCHAR" property="cartPrice"/>
 	</association>
 </resultMap>
+
+<select id="purchList" parameterType="string" resultType="model.PurchListDTO">
+	select pr.PROD_NO prodNo, PROD_NAME prodName, PROD_IMG prodImage, pu.PURC_NO purchNo, 
+			PURC_DATE purchDate, PURC_PRICE purchTotal, PAY_NO payNo
+	FROM PRODUCT pr, PURCHASE_LIST pl, PURCHASE pu, PAYMENT pa
+	where pr.prod_no = pl.prod_no and pl.purc_no = pu.purc_no and pu.purc_no = pa.purc_no(+)
+	and pu.memb_id = #{membId}
+</select>
+
+<insert id="purchInsert" parameterType="model.PurchaseDTO">
+	insert into purchase (PURC_NO, PURC_DATE, PURC_PRICE, PURC_ADDR, PURC_NAME, 
+						  PURC_PHONENUM, PURC_MESSAGE, MEMB_ID)
+	values (#{purchNo}, sysdate, #{purchTotal}, #{purchAddr}, #{purchReceiver}, 
+			#{purchPhoneNumber}, #{purchMsg}, #{membId})
+</insert>
+
+<insert id="purchListInsert" parameterType="model.CartDTO">
+	insert into purchase_list (PURC_NO, PROD_NO, CATE_NUM, PRICE_QTY, PRICE_PRICE)
+	select #{purchNo}, PROD_NO, CATE_NUM, CART_QTY, CART_PRICE from cart
+	where memb_id = #{membId} and PROD_NO =#{prodNo}
+</insert>
+
+<delete id="cartProdDel" parameterType="model.CartDTO">
+	delete from cart
+	where memb_id = #{membId} and PROD_NO =#{prodNo}
+</delete>
 
 <update id="cartQtyDown" parameterType="model.CartDTO">
 	update cart

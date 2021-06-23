@@ -49,6 +49,7 @@
 <!-- 사용자 로그인 -->
 	<a href="member/memMyPage">마이페이지</a>
 	<a href="prod/cartList">장바구니</a>
+	<a href="prod/purchCon">주문확인</a>
 </c:if>
 
 <!-- 로그아웃은 직원과 사용자 모두 사용 -->

@@ -29,6 +29,7 @@
 </table>
 2. 배송지 정보 입력 (* 필수 입력)
 <form action="goodsOrder" method="post">
+
 <input type="hidden" name="purchTotal" value="${totalPrice }" />
 <input type="hidden" name="prodNums" value="${prodNums }" />
 <table width="800">
@@ -40,7 +41,7 @@
 		<td><input type="text" name="purchPhoneNumber" /></td></tr>
 	<tr><th>주문 메세지</th>
 		<td><input type="text" name="purchMsg" /></td></tr>
-	<tr><th colspan="2"><input type="submit" value="결제하기" /></th></tr>
+	<tr><th colspan="2"><input type="submit" value="주문하기" /></th></tr>
 </table>
 </form>
 </body>
