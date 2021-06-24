@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.salesMapper">
+
+<select id="salesList" resultType="model.SalesListDTO">
+	select p.prod_no prodNo, prod_name prodName, prod_price prodPrice, 
+			sum(price_qty) sumPrice, sum(price_price) sumPurchPrice
+	from product p, purchase_list pl
+	where p.prod_no=pl.prod_no
+	group by p.prod_no, prod_name, prod_price
+</select>
+
+
+</mapper>

@@ -6,7 +6,7 @@
 <sql id="payNo">
 select to_char(sysdate, 'yyyymmdd') || nvl2(max(pay_no), substr(max(pay_no), -6), 100000) +1
 from payment
-where substr(pay_date,1,8) =  to_char(sysdate, 'yyyymmdd')
+where to_char(pay_date, 'yyyymmdd') = to_char(sysdate, 'yyyymmdd')
 </sql>
 
 <insert id="payInsert" parameterType="model.PaymentDTO">
@@ -14,6 +14,26 @@ where substr(pay_date,1,8) =  to_char(sysdate, 'yyyymmdd')
 	values ((<include refid="payNo" />), #{purchNo}, #{payMethod}, #{payAccNum}, 
 			#{payPrice}, sysdate, #{payCardBank})
 </insert>
+
+<insert id="reviewWrite" parameterType="model.ReviewDTO">
+	insert into review (PURC_NO, PROD_NO, REVIEW_DATE, REVIEW_CONTENT, CATE_NUM )
+	values (#{purchNo}, #{prodNo}, sysdate, #{reviewContent}, 
+			(select CATE_NUM from product where PROD_NO = #{prodNo}))
+</insert>
+
+<select id="prodReviewSelect" parameterType="string" resultType="model.ProdReviewDTO">
+	select p.memb_id membId, pl.purc_no purchNo, pl.prod_no prodNo, 
+			purc_date purchDate, review_date reviewDate, review_content reviewContent
+	from purchase p, purchase_list pl, review r
+	where p.purc_no = pl.purc_no and pl.prod_no = r.prod_no and pl.purc_no = r.purc_no
+    and r.prod_no = #{prodNo}
+</select>
+
+<select id="reviewSelect" parameterType="model.ReviewDTO" resultType="model.ReviewDTO">
+	select PURC_NO purchNo, PROD_NO prodNo, REVIEW_CONTENT reviewContent
+	FROM REVIEW
+	where purc_no = #{purchNo} and prod_no = #{prodNo}
+</select>
 
 <select id="memCart" parameterType="string" resultType="string">
 	select PROD_NO from cart
@@ -41,12 +61,22 @@ where substr(pay_date,1,8) =  to_char(sysdate, 'yyyymmdd')
 	</association>
 </resultMap>
 
+<update id="reviewUpdate" parameterType="model.ReviewDTO">
+	update review
+	set REVIEW_CONTENT = #{reviewContent}
+	where PURC_NO = #{purchNo} and PROD_NO =#{prodNo}
+</update>
+
 <select id="purchList" parameterType="string" resultType="model.PurchListDTO">
 	select pr.PROD_NO prodNo, PROD_NAME prodName, PROD_IMG prodImage, pu.PURC_NO purchNo, 
-			PURC_DATE purchDate, PURC_PRICE purchTotal, PAY_NO payNo
-	FROM PRODUCT pr, PURCHASE_LIST pl, PURCHASE pu, PAYMENT pa
-	where pr.prod_no = pl.prod_no and pl.purc_no = pu.purc_no and pu.purc_no = pa.purc_no(+)
-	and pu.memb_id = #{membId}
+			PURC_DATE purchDate, PURC_PRICE purchTotal, PAY_NO payNo, REVIEW_CONTENT reviewContent
+	FROM PRODUCT pr, PURCHASE_LIST pl, PURCHASE pu, PAYMENT pa, REVIEW re
+	where pr.prod_no = pl.prod_no 
+		  and pl.purc_no = pu.purc_no 
+		  and pu.purc_no = pa.purc_no(+)
+		  and pl.purc_no = re.purc_no(+)
+		  and pl.prod_no = re.prod_no(+)
+		  and pu.memb_id = #{membId}
 </select>
 
 <insert id="purchInsert" parameterType="model.PurchaseDTO">

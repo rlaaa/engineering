@@ -34,6 +34,7 @@
   			classpath:spring-main.xml
   			classpath:spring-member.xml
   			classpath:spring-product.xml
+  			classpath:spring-sales.xml
   		</param-value>
   	</init-param>
   </servlet>
